@@ -1,43 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import {state} from './states'
+import * as actions from './actions'
+import * as mutations from './mutations'
+import * as getters from './getters'
 //使用Vuex
 Vue.use(Vuex)
 
 //创建Vuex实例
 const store =new Vuex.Store({
-   state:{count:10},
-   getters:{
-       getStateCount:function(state){//上面定义的state
-         console.log('getters this='+this);
-         return state.count=state.count+1;
-       }
-   },
-   mutations:{
-     add(state,m){
-       console.log('mutations add m='+m);
-       console.log('addFun this='+this);
-       return this.state.count=this.state.count+m;
-     },
-     reduction(state,m) {
-       console.log('m='+m);
-       console.log('reductionFun this='+this);
-       return this.state.count=this.state.count-m;
-     }
-   },
-
-   actions:{
-      addFun(context,m){
-        console.log('actions=addFun m='+m)
-        context.commit('add',m);
-      },
-     reduction:function(context,m){
-        console.log('actions=reduction m='+m)
-        context.commit('reduction',m);
-     }
-
-   }
-
+   state,//共同维护的一个状态
+   getters,//获取数据并渲染
+   mutations,//处理数据的唯一途径，state的改变或赋值只能在这里
+   actions//数据的异步操作
 })
 
 export default store  //导出store

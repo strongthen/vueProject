@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     <div class="tab border-1px">
       <div class="tab-item">
         <!-- router-link 定义点击后导航到哪个路径下 -->
@@ -23,7 +23,14 @@
       </div>
     </div>
     <!-- 对应的组件内容渲染到router-view中 -->
-    <router-view></router-view>
+    <!--include exclude 有条件的进行缓存,正则或者数组-->
+    <!--<keep-alive include="ratings">-->
+        <!--<router-view></router-view>-->
+    <!--</keep-alive>-->
+    <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"> </router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"> </router-view>
   </div>
 </template>
 
@@ -34,12 +41,17 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #container .border-1px{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>

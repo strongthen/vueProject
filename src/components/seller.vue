@@ -1,13 +1,78 @@
 <template>
-    <div>我是卖家</div>
+  <div class="swiper-container"
+       ref="slider">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="../assets/images/t1.svg"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="../assets/images/t2.svg"/>
+      </div>
+    </div>
+    <div class="swiper-pagination" ref="pagination"></div>
+  </div>
 </template>
+<style>
+  .swiper-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-<script>
-    export default {
-        name: "seller"
-    }
-</script>
+  .swiper-wrapper {
+    height: 200px;
+  }
 
-<style scoped>
+  .swiper-slide img {
+    max-width: 100%;
+  }
 
+  .swiper-slide {
+    text-align: center;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
 </style>
+<script type="text/ecmascript-6">
+  import Swiper from "swiper"
+  import {requestGet,test} from  '../api/https'
+  import 'swiper/dist/css/swiper.css'
+
+  export default{
+
+    mounted() {
+      new Swiper(this.$refs.slider, {
+        pagination: this.$refs.pagination,
+        paginationClickable: true,
+        spaceBetween: 30,
+        loop:true,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+      });
+
+    /*   this.$axios({
+         url:'http://localhost:8088/findAllUser',
+         method:'get',
+         params:{}
+       }).then(function(data){
+          console.log('data='+data.data.code);
+       })*/
+      console.log('test='+test);
+      requestGet('http://localhost:8088/findAllUser',{});
+
+    }
+  }
+</script>
